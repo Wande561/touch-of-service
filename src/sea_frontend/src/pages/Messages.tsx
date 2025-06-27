@@ -14,7 +14,7 @@ const Messages = () => {
   const conversations = [
     {
       id: '1',
-      name: 'Sarah Johnson',
+      name: 'Nokwazi Ndlovu',
       service: 'House Cleaning',
       avatar: '/placeholder.svg',
       lastMessage: 'I can start the cleaning service tomorrow at 9 AM. Does that work for you?',
@@ -25,7 +25,7 @@ const Messages = () => {
     },
     {
       id: '2',
-      name: 'Mike Rodriguez',
+      name: 'Fanele Mbhele',
       service: 'Plumbing Repair',
       avatar: '/placeholder.svg',
       lastMessage: 'Thanks for the photos. I can fix that issue today.',
@@ -36,7 +36,7 @@ const Messages = () => {
     },
     {
       id: '3',
-      name: 'Alex Chen',
+      name: 'Vuyelwa Zungu',
       service: 'Personal Training',
       avatar: '/placeholder.svg',
       lastMessage: 'Great workout today! See you next week.',
