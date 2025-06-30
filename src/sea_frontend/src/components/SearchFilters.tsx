@@ -1,93 +1,114 @@
 
 import React, { useState } from 'react';
+import { Search, MapPin, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, Filter, MapPin, Star } from 'lucide-react';
 
 const SearchFilters = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [location, setLocation] = useState('');
-  const [serviceType, setServiceType] = useState('');
-  const [rating, setRating] = useState('');
+  const [category, setCategory] = useState('');
+  const [priceRange, setPriceRange] = useState('');
 
-  const serviceTypes = [
+  const categories = [
+    'All Categories',
     'Cleaning',
     'Plumbing',
     'Electrical',
     'Tutoring',
+    'Beauty & Wellness',
+    'Repairs & Maintenance',
     'Pet Care',
-    'Moving',
-    'Landscaping',
-    'Handyman',
+    'Catering',
+    'Photography',
   ];
 
-  return (
-    <div className="w-full max-w-6xl mx-auto p-6">
-      <div className="glass-card p-6 rounded-2xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          {/* Main Search */}
-          <div className="lg:col-span-2 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <Input
-              placeholder="What service do you need?"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 bg-background/50 border-border/50 focus:border-primary"
-            />
-          </div>
+  const priceRanges = [
+    'Any Price',
+    'Under R25/hour',
+    'R25-50/hour',
+    'R50-100/hour',
+    'Over R100/hour',
+  ];
 
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('Search:', { searchQuery, location, category, priceRange });
+  };
+
+  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocation(e.target.value);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  return (
+    <div className="w-full">
+      <form onSubmit={handleSearch} className="space-y-4">
+        {/* Main Search Bar */}
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+          <Input
+            type="text"
+            placeholder="What service do you need?"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="pl-10 h-12 text-lg bg-background/50 border-border/50 focus:border-primary"
+          />
+        </div>
+
+        {/* Filters Row */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* Location */}
           <div className="relative">
-            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
+              type="text"
               placeholder="Location"
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className="pl-10 h-12 bg-background/50 border-border/50 focus:border-primary"
+              onChange={handleLocationChange}
+              className="pl-10 bg-background/50 border-border/50 focus:border-primary"
             />
           </div>
 
-          {/* Service Type */}
-          <Select value={serviceType} onValueChange={setServiceType}>
-            <SelectTrigger className="h-12 bg-background/50 border-border/50 focus:border-primary">
-              <SelectValue placeholder="Service Type" />
+          {/* Category */}
+          <Select onValueChange={setCategory}>
+            <SelectTrigger className="bg-background/50 border-border/50 focus:border-primary">
+              <SelectValue placeholder="Category" />
             </SelectTrigger>
-            <SelectContent className="glass-card border-border/50">
-              {serviceTypes.map((type) => (
-                <SelectItem key={type} value={type}>
-                  {type}
+            <SelectContent>
+              {categories.map((cat) => (
+                <SelectItem key={cat} value={cat.toLowerCase().replace(/\s+/g, '-')}>
+                  {cat}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
 
-          {/* Rating Filter */}
-          <Select value={rating} onValueChange={setRating}>
-            <SelectTrigger className="h-12 bg-background/50 border-border/50 focus:border-primary">
-              <SelectValue placeholder="Rating" />
+          {/* Price Range */}
+          <Select onValueChange={setPriceRange}>
+            <SelectTrigger className="bg-background/50 border-border/50 focus:border-primary">
+              <SelectValue placeholder="Price Range" />
             </SelectTrigger>
-            <SelectContent className="glass-card border-border/50">
-              <SelectItem value="4+">4+ Stars</SelectItem>
-              <SelectItem value="3+">3+ Stars</SelectItem>
-              <SelectItem value="2+">2+ Stars</SelectItem>
-              <SelectItem value="1+">1+ Stars</SelectItem>
+            <SelectContent>
+              {priceRanges.map((range) => (
+                <SelectItem key={range} value={range.toLowerCase().replace(/\s+/g, '-')}>
+                  {range}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
-        </div>
 
-        <div className="flex justify-between items-center mt-6">
-          <Button variant="ghost" className="text-muted-foreground">
+          {/* Search Button */}
+          <Button type="submit" className="btn-gradient">
             <Filter className="w-4 h-4 mr-2" />
-            More Filters
-          </Button>
-          
-          <Button className="btn-gradient px-8">
-            <Search className="w-4 h-4 mr-2" />
-            Search Services
+            Search
           </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

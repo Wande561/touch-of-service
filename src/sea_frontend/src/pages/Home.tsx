@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar } from '@/components/ui/avatar';
 import SearchFilters from '@/components/SearchFilters';
 import ServiceCard from '@/components/ServiceCard';
+import Navigation from '@/components/Navigations';
 import { Star, Bell, User, Settings, Calendar, MapPin, TrendingUp, Heart } from 'lucide-react';
 
 const Home = () => {
@@ -78,48 +79,15 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-card border-b border-border/50 p-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Link to="/home" className="flex items-center space-x-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-blue-500"></div>
-              <span className="text-xl font-bold gradient-text">ServiceHub</span>
-            </Link>
-          </div>
+      <Navigation />
 
-          <div className="flex items-center space-x-4">
-            <Link to="/notifications">
-              <Button variant="ghost" size="sm" className="relative">
-                <Bell className="w-5 h-5" />
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-orange-500 rounded-full"></span>
-              </Button>
-            </Link>
-            
-            <Link to="/settings">
-              <Button variant="ghost" size="sm">
-                <Settings className="w-5 h-5" />
-              </Button>
-            </Link>
-
-            <Link to="/profile">
-              <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-                <Avatar className="w-8 h-8">
-                  <img src={user.avatar} alt={user.name} />
-                </Avatar>
-                <span className="hidden md:block">{user.name}</span>
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      <div className="max-w-7xl mx-auto p-4">
+      <div className="max-w-7xl mx-auto p-24">
         {/* Welcome Section */}
         <div className="mb-8">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">
             Welcome back, {user.name.split(' ')[0]}! 👋
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground text-orange-500">
             Find the perfect service for your needs
           </p>
         </div>
@@ -237,7 +205,7 @@ const Home = () => {
             <Card className="p-6">
               <h3 className="font-semibold mb-4">App Settings</h3>
               <div className="space-y-2">
-                <Link to="/settings/notifications">
+                <Link to="/notifications">
                   <Button variant="ghost" className="w-full justify-start">
                     <Bell className="w-4 h-4 mr-2" />
                     Notifications
@@ -257,6 +225,19 @@ const Home = () => {
                 </Link>
               </div>
             </Card>
+
+            {/* Footer
+            <footer className="border-t  border-border/50 py-12 bg-card/50">
+               <div className="max-w-7xl mx-auto px-4 text-center">
+                 <div className="flex items-center justify-center space-x-2 mb-4">
+                   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-blue-500"></div>
+                   <span className="text-xl font-bold gradient-text">ServiceHub</span>
+                 </div>
+                 <p className="text-muted-foreground">
+                   Connecting communities through trusted services.
+                 </p>
+               </div>
+            </footer> */}
           </div>
         </div>
       </div>

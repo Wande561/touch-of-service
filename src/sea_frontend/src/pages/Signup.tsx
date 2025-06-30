@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,30 +8,34 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, User, Briefcase, Check } from 'lucide-react';
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [accountType, setAccountType] = useState<'client' | 'provider' | null>(null);
   const [formData, setFormData] = useState({
     email: '',
     phone: '',
     name: '',
     location: '',
-    // Provider specific fields
     businessName: '',
     services: '',
     experience: '',
     license: '',
   });
-
-  const handleSubmit = (e: React.FormEvent) => {
+  
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Signup form submitted:', { accountType, ...formData });
-    // Handle signup logic here
+
+    if (accountType === 'provider') {
+      navigate('/verification');
+    } else {
+      navigate('/home');
+    }
   };
 
   if (!accountType) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <div className="absolute inset-0 bg-hero-gradient opacity-5 animate-gradient-x"></div>
-        
         <div className="w-full max-w-4xl relative z-10">
           <div className="mb-8">
             <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors">
@@ -51,7 +54,7 @@ const Signup = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Client Signup */}
+            {/* Client Signup Card */}
             <Card 
               className="floating-card p-8 cursor-pointer border-2 hover:border-primary/50 transition-all"
               onClick={() => setAccountType('client')}
@@ -64,7 +67,6 @@ const Signup = () => {
                 <p className="text-muted-foreground mb-6">
                   Find and book trusted professionals for your home and personal needs
                 </p>
-                
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center space-x-2">
                     <Check className="w-4 h-4 text-green-500" />
@@ -79,14 +81,11 @@ const Signup = () => {
                     <span className="text-sm">Secure booking & payments</span>
                   </div>
                 </div>
-
-                <Button className="w-full btn-gradient">
-                  Sign Up as Client
-                </Button>
+                <Button className="w-full btn-gradient">Sign Up as Client</Button>
               </div>
             </Card>
 
-            {/* Provider Signup */}
+            {/* Provider Signup Card */}
             <Card 
               className="floating-card p-8 cursor-pointer border-2 hover:border-primary/50 transition-all"
               onClick={() => setAccountType('provider')}
@@ -99,7 +98,6 @@ const Signup = () => {
                 <p className="text-muted-foreground mb-6">
                   Grow your business by connecting with customers in your area
                 </p>
-                
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center space-x-2">
                     <Check className="w-4 h-4 text-green-500" />
@@ -114,7 +112,6 @@ const Signup = () => {
                     <span className="text-sm">Secure payment processing</span>
                   </div>
                 </div>
-
                 <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                   Sign Up as Provider
                 </Button>
@@ -134,11 +131,10 @@ const Signup = () => {
       </div>
     );
   }
-
+  
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-hero-gradient opacity-5 animate-gradient-x"></div>
-      
       <div className="w-full max-w-md relative z-10">
         <div className="mb-8">
           <Button 
@@ -173,7 +169,6 @@ const Signup = () => {
                 placeholder="Enter your full name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="bg-background/50 border-border/50 focus:border-primary"
                 required
               />
             </div>
@@ -186,7 +181,6 @@ const Signup = () => {
                 placeholder="Enter your email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="bg-background/50 border-border/50 focus:border-primary"
                 required
               />
             </div>
@@ -199,7 +193,6 @@ const Signup = () => {
                 placeholder="Enter your phone number"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="bg-background/50 border-border/50 focus:border-primary"
                 required
               />
             </div>
@@ -211,7 +204,6 @@ const Signup = () => {
                 placeholder="Enter your city or area"
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                className="bg-background/50 border-border/50 focus:border-primary"
                 required
               />
             </div>
@@ -225,7 +217,6 @@ const Signup = () => {
                     placeholder="Enter your business name"
                     value={formData.businessName}
                     onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                    className="bg-background/50 border-border/50 focus:border-primary"
                   />
                 </div>
 
@@ -236,7 +227,6 @@ const Signup = () => {
                     placeholder="e.g., Cleaning, Plumbing, Tutoring"
                     value={formData.services}
                     onChange={(e) => setFormData({ ...formData, services: e.target.value })}
-                    className="bg-background/50 border-border/50 focus:border-primary"
                     required
                   />
                 </div>
@@ -248,7 +238,6 @@ const Signup = () => {
                     placeholder="Enter years of experience"
                     value={formData.experience}
                     onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
-                    className="bg-background/50 border-border/50 focus:border-primary"
                     required
                   />
                 </div>

@@ -40,7 +40,7 @@ const Verification = () => {
 
   const handleSubmit = () => {
     console.log('Verification submitted:', verificationData);
-    setStep(4); // Go to success step
+    setStep(4); 
   };
 
   const handleComplete = () => {

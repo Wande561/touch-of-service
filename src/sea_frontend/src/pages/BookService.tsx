@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import Navigation from '@/components/Navigations';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -12,6 +12,7 @@ import { ArrowLeft, Calendar, Clock, MapPin, CreditCard } from 'lucide-react';
 const BookService = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false); // ✅ Added for custom modal
   const [bookingData, setBookingData] = useState({
     date: '',
     time: '',
@@ -21,7 +22,6 @@ const BookService = () => {
     paymentMethod: '',
   });
 
-  // Mock service data
   const service = {
     title: 'Professional House Cleaning Service',
     provider: 'Nokwazi Ndlovu',
@@ -29,12 +29,16 @@ const BookService = () => {
     unit: 'hour',
   };
 
+  const handleClick = () => {
+    console.log('Booking submitted:', bookingData);
+    setShowPopup(true);
+  };
+
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Booking submitted:', bookingData);
-    // Show success message and redirect
-    alert('Booking confirmed! You will receive a confirmation email shortly.');
-    navigate('/');
+    setShowPopup(true); 
   };
 
   const calculateTotal = () => {
@@ -50,13 +54,7 @@ const BookService = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto p-4">
-        {/* Header */}
-        <div className="flex items-center mb-6">
-          <Link to={`/service/${id}`} className="flex items-center text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="w-5 h-5 mr-2" />
-            Back to Service
-          </Link>
-        </div>
+        <Navigation />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Booking Form */}
@@ -65,7 +63,7 @@ const BookService = () => {
               <h1 className="text-2xl font-bold mb-6">Book Your Service</h1>
               
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Date & Time Selection */}
+                {/* Date & Time */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="date">
@@ -76,8 +74,7 @@ const BookService = () => {
                       id="date"
                       type="date"
                       value={bookingData.date}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBookingData({ ...bookingData, date: e.target.value })}
-                      className="bg-background/50 border-border/50 focus:border-primary"
+                      onChange={(e) => setBookingData({ ...bookingData, date: e.target.value })}
                       required
                     />
                   </div>
@@ -87,21 +84,14 @@ const BookService = () => {
                       <Clock className="w-4 h-4 inline mr-2" />
                       Select Time
                     </Label>
-                    <Select onValueChange={(value: string) => setBookingData({ ...bookingData, time: value })}>
-                      <SelectTrigger className="bg-background/50 border-border/50 focus:border-primary">
+                    <Select onValueChange={(value) => setBookingData({ ...bookingData, time: value })}>
+                      <SelectTrigger>
                         <SelectValue placeholder="Choose time" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="08:00">8:00 AM</SelectItem>
-                        <SelectItem value="09:00">9:00 AM</SelectItem>
-                        <SelectItem value="10:00">10:00 AM</SelectItem>
-                        <SelectItem value="11:00">11:00 AM</SelectItem>
-                        <SelectItem value="12:00">12:00 PM</SelectItem>
-                        <SelectItem value="13:00">1:00 PM</SelectItem>
-                        <SelectItem value="14:00">2:00 PM</SelectItem>
-                        <SelectItem value="15:00">3:00 PM</SelectItem>
-                        <SelectItem value="16:00">4:00 PM</SelectItem>
-                        <SelectItem value="17:00">5:00 PM</SelectItem>
+                        {['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'].map(t => (
+                          <SelectItem key={t} value={t}>{t}</SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -110,17 +100,14 @@ const BookService = () => {
                 {/* Duration */}
                 <div className="space-y-2">
                   <Label htmlFor="duration">Duration (hours)</Label>
-                  <Select onValueChange={(value: string) => setBookingData({ ...bookingData, duration: value })}>
-                    <SelectTrigger className="bg-background/50 border-border/50 focus:border-primary">
+                  <Select onValueChange={(value) => setBookingData({ ...bookingData, duration: value })}>
+                    <SelectTrigger>
                       <SelectValue placeholder="Select duration" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="1">1 hour</SelectItem>
-                      <SelectItem value="2">2 hours</SelectItem>
-                      <SelectItem value="3">3 hours</SelectItem>
-                      <SelectItem value="4">4 hours</SelectItem>
-                      <SelectItem value="6">6 hours</SelectItem>
-                      <SelectItem value="8">8 hours</SelectItem>
+                      {[1, 2, 3, 4, 6, 8].map(h => (
+                        <SelectItem key={h} value={h.toString()}>{h} hour{h > 1 && 's'}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -135,21 +122,19 @@ const BookService = () => {
                     id="location"
                     placeholder="Enter your address"
                     value={bookingData.location}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBookingData({ ...bookingData, location: e.target.value })}
-                    className="bg-background/50 border-border/50 focus:border-primary"
+                    onChange={(e) => setBookingData({ ...bookingData, location: e.target.value })}
                     required
                   />
                 </div>
 
-                {/* Special Instructions */}
+                {/* Notes */}
                 <div className="space-y-2">
                   <Label htmlFor="notes">Special Instructions (Optional)</Label>
                   <Textarea
                     id="notes"
-                    placeholder="Any specific requirements or notes for the service provider..."
+                    placeholder="Any specific requirements?"
                     value={bookingData.notes}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setBookingData({ ...bookingData, notes: e.target.value })}
-                    className="bg-background/50 border-border/50 focus:border-primary"
+                    onChange={(e) => setBookingData({ ...bookingData, notes: e.target.value })}
                     rows={4}
                   />
                 </div>
@@ -160,8 +145,8 @@ const BookService = () => {
                     <CreditCard className="w-4 h-4 inline mr-2" />
                     Payment Method
                   </Label>
-                  <Select onValueChange={(value: string) => setBookingData({ ...bookingData, paymentMethod: value })}>
-                    <SelectTrigger className="bg-background/50 border-border/50 focus:border-primary">
+                  <Select onValueChange={(value) => setBookingData({ ...bookingData, paymentMethod: value })}>
+                    <SelectTrigger>
                       <SelectValue placeholder="Select payment method" />
                     </SelectTrigger>
                     <SelectContent>
@@ -172,6 +157,9 @@ const BookService = () => {
                     </SelectContent>
                   </Select>
                 </div>
+
+                {/* Submit button (optional if you want 2 buttons) */}
+                {/* <Button type="submit" className="hidden" /> */}
               </form>
             </Card>
           </div>
@@ -180,33 +168,15 @@ const BookService = () => {
           <div className="lg:col-span-1">
             <Card className="p-6 sticky top-4">
               <h3 className="text-lg font-semibold mb-4">Booking Summary</h3>
-              
+
               <div className="space-y-3 mb-6">
                 <div>
                   <div className="font-medium">{service.title}</div>
                   <div className="text-sm text-muted-foreground">by {service.provider}</div>
                 </div>
-                
-                {bookingData.date && (
-                  <div className="flex justify-between">
-                    <span>Date:</span>
-                    <span>{new Date(bookingData.date).toLocaleDateString()}</span>
-                  </div>
-                )}
-                
-                {bookingData.time && (
-                  <div className="flex justify-between">
-                    <span>Time:</span>
-                    <span>{bookingData.time}</span>
-                  </div>
-                )}
-                
-                {bookingData.duration && (
-                  <div className="flex justify-between">
-                    <span>Duration:</span>
-                    <span>{bookingData.duration} hour(s)</span>
-                  </div>
-                )}
+                {bookingData.date && <div className="flex justify-between"><span>Date:</span><span>{new Date(bookingData.date).toLocaleDateString()}</span></div>}
+                {bookingData.time && <div className="flex justify-between"><span>Time:</span><span>{bookingData.time}</span></div>}
+                {bookingData.duration && <div className="flex justify-between"><span>Duration:</span><span>{bookingData.duration} hour(s)</span></div>}
               </div>
 
               {bookingData.duration && (
@@ -226,13 +196,10 @@ const BookService = () => {
                 </div>
               )}
 
-              <Button 
-                type="submit" 
+              <Button
+                type="button"
                 className="w-full btn-gradient"
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  e.preventDefault();
-                  handleSubmit(e as any);
-                }}
+                onClick={handleClick}
                 disabled={!bookingData.date || !bookingData.time || !bookingData.duration || !bookingData.location}
               >
                 Confirm Booking
@@ -247,6 +214,27 @@ const BookService = () => {
           </div>
         </div>
       </div>
+
+      {/* ✅ Custom Popup Modal */}
+      {showPopup && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-black p-1 rounded-xl shadow-lg max-w-sm w-full text-center">
+            <h2 className="text-lg font-bold mb-2">Booking Confirmed!</h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              You will receive a confirmation email shortly.
+            </p>
+            <Button
+              className="w-full"
+              onClick={() => {
+                setShowPopup(false);
+                navigate('/home');
+              }}
+            >
+              OK
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

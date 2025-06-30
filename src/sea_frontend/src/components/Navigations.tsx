@@ -55,14 +55,14 @@ const Navigation = () => {
               </Button>
             </Link>
             
-            <div className="hidden md:flex items-center space-x-2">
+            {/* <div className="hidden md:flex items-center space-x-2">
               <Link to="/login">
                 <Button variant="ghost" size="sm">Log In</Button>
               </Link>
               <Link to="/signup">
                 <Button className="btn-gradient" size="sm">Sign Up</Button>
               </Link>
-            </div>
+            </div> */}
 
             {/* Mobile menu button */}
             <Button
@@ -98,14 +98,14 @@ const Navigation = () => {
                   </Link>
                 );
               })}
-              <div className="flex flex-col space-y-2 pt-4 border-t border-border/50">
+              {/* <div className="flex flex-col space-y-2 pt-4 border-t border-border/50">
                 <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
                   <Button variant="ghost" className="w-full justify-start">Log In</Button>
                 </Link>
                 <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
                   <Button className="btn-gradient w-full">Sign Up</Button>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
         )}

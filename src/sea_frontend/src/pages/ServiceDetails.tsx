@@ -5,12 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar } from '@/components/ui/avatar';
+import Navigation from '@/components/Navigation';
 import { Star, MapPin, Clock, Phone, Mail, ArrowLeft, Heart, Share2 } from 'lucide-react';
 
 const ServiceDetails = () => {
+  
   const { id } = useParams();
-
-  // Mock service data - in real app, this would come from API
   const service = {
     id: '1',
     title: 'Professional House Cleaning Service',
@@ -32,6 +32,7 @@ const ServiceDetails = () => {
     availability: 'Mon-Sat: 8AM-6PM',
     phone: '+27 73 123 4567',
     email: 'nokwazi@email.com',
+    image: ['/img1.jpeg', '/img2.jpeg', '/img3.jpeg'],
   };
 
   const reviews = [
@@ -58,7 +59,7 @@ const ServiceDetails = () => {
       <div className="max-w-4xl mx-auto p-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <Link to="/" className="flex items-center text-muted-foreground hover:text-foreground">
+          <Link to="/home" className="flex items-center text-muted-foreground hover:text-foreground">
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back to Search
           </Link>
@@ -75,21 +76,22 @@ const ServiceDetails = () => {
         {/* Image Gallery */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <img
-            src={service.images[0]}
+            src={service.image[0]}
             alt={service.title}
             className="w-full h-64 md:h-80 object-cover rounded-lg"
-          />
+         />
           <div className="grid grid-cols-2 gap-2">
-            {service.images.slice(1).map((image, index) => (
+            {service.image.slice(1).map((image, index) => (
               <img
                 key={index}
                 src={image}
                 alt={`${service.title} ${index + 2}`}
-                className="w-full h-32 md:h-39 object-cover rounded-lg"
-              />
-            ))}
+                className="w-full h-32 md:h-40 object-cover rounded-lg"
+             />
+         ))}
           </div>
-        </div>
+       </div>
+
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content */}
@@ -216,14 +218,16 @@ const ServiceDetails = () => {
               </div>
 
               <div className="space-y-4">
-                <Link to={`/book/${service.id}`}>
+                <Link to="/bookservice">
                   <Button className="w-full btn-gradient">
                     Book Now
                   </Button>
                 </Link>
-                <Button variant="outline" className="w-full">
-                  Send Message
-                </Button>
+                <Link to="/message">
+                  <Button variant="outline" className="w-full">
+                    Send Message
+                  </Button>
+                </Link>
               </div>
 
               <div className="mt-4 pt-4 border-t border-border/50 text-center">

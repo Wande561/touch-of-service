@@ -1,10 +1,10 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Star, MapPin, Clock, User } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Star, MapPin, Clock, Heart } from 'lucide-react';
 
 interface ServiceCardProps {
   id: string;
@@ -38,66 +38,82 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   isOnline = false,
 }) => {
   return (
-    <Card className="floating-card p-0 overflow-hidden group">
+    <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
       <div className="relative">
         <img
-          src={images[0] || '/placeholder.svg'}
+          src={images[0]}
           alt={title}
-          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
         />
-        <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground">
+        <Badge className="absolute top-3 left-3" variant="secondary">
           {category}
         </Badge>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-3 right-3 bg-white/80 hover:bg-white"
+        >
+          <Heart className="w-4 h-4" />
+        </Button>
         {isOnline && (
-          <div className="absolute top-3 right-3 w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-3 left-3">
+            <Badge className="bg-green-500 text-white">
+              <div className="w-2 h-2 bg-green-300 rounded-full mr-1 animate-pulse"></div>
+              Online
+            </Badge>
+          </div>
         )}
       </div>
 
       <div className="p-4 space-y-3">
-        <div className="flex items-start justify-between">
-          <h3 className="font-semibold text-lg line-clamp-2 group-hover:text-primary transition-colors">
-            {title}
-          </h3>
-          <div className="text-right">
-            <div className="font-bold text-primary">${price.amount}</div>
-            <div className="text-sm text-muted-foreground">/{price.unit}</div>
-          </div>
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <img
-            src={provider.avatar || '/placeholder.svg'}
-            alt={provider.name}
-            className="w-8 h-8 rounded-full object-cover"
-          />
-          <div className="flex-1">
-            <div className="font-medium text-sm">{provider.name}</div>
-            <div className="flex items-center space-x-1">
-              <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-              <span className="text-sm text-muted-foreground">
-                {provider.rating} ({provider.reviewCount})
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <div className="flex items-center space-x-1">
+        <div>
+          <h3 className="font-semibold text-lg mb-1 line-clamp-2">{title}</h3>
+          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
             <MapPin className="w-3 h-3" />
             <span>{location}</span>
-          </div>
-          <div className="flex items-center space-x-1">
-            <Clock className="w-3 h-3" />
+            <Clock className="w-3 h-3 ml-2" />
             <span>{responseTime}</span>
           </div>
         </div>
 
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <img
+              src={provider.avatar}
+              alt={provider.name}
+              className="w-8 h-8 rounded-full"
+            />
+            <div>
+              <div className="text-sm font-medium">{provider.name}</div>
+              <div className="flex items-center space-x-1">
+                <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                <span className="text-xs text-muted-foreground">
+                  {provider.rating} ({provider.reviewCount})
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-right">
+            <div className="text-lg font-bold text-primary">
+              ${price.amount}
+            </div>
+            <div className="text-xs text-muted-foreground">
+              per {price.unit}
+            </div>
+          </div>
+        </div>
+
         <div className="flex space-x-2 pt-2">
-          <Link to={`/service/${id}`} className="flex-1">
-            <Button className="w-full btn-gradient">View Details</Button>
+          <Link to="/servicedetails" className="flex-1">
+            <Button variant="outline" className="w-full">
+               View Details
+            </Button>
           </Link>
-          <Link to={`/book/${id}`}>
-            <Button variant="outline" className="px-6">Book Now</Button>
+          <Link to="/bookservice" className="flex-1">
+            <Button className="w-full btn-gradient">
+              Book Now
+            </Button>
           </Link>
         </div>
       </div>
