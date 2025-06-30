@@ -22,7 +22,7 @@ const Signup = () => {
     license: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Signup form submitted:', { accountType, ...formData });
     
@@ -178,7 +178,7 @@ const Signup = () => {
                 id="name"
                 placeholder="Enter your full name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, name: e.target.value })}
                 className="bg-background/50 border-border/50 focus:border-primary"
                 required
               />
@@ -191,7 +191,7 @@ const Signup = () => {
                 type="email"
                 placeholder="Enter your email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
                 className="bg-background/50 border-border/50 focus:border-primary"
                 required
               />
@@ -204,7 +204,7 @@ const Signup = () => {
                 type="tel"
                 placeholder="Enter your phone number"
                 value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, phone: e.target.value })}
                 className="bg-background/50 border-border/50 focus:border-primary"
                 required
               />
@@ -216,7 +216,7 @@ const Signup = () => {
                 id="location"
                 placeholder="Enter your city or area"
                 value={formData.location}
-                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, location: e.target.value })}
                 className="bg-background/50 border-border/50 focus:border-primary"
                 required
               />
@@ -230,7 +230,7 @@ const Signup = () => {
                     id="businessName"
                     placeholder="Enter your business name"
                     value={formData.businessName}
-                    onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, businessName: e.target.value })}
                     className="bg-background/50 border-border/50 focus:border-primary"
                   />
                 </div>
@@ -241,7 +241,7 @@ const Signup = () => {
                     id="services"
                     placeholder="e.g., Cleaning, Plumbing, Tutoring"
                     value={formData.services}
-                    onChange={(e) => setFormData({ ...formData, services: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, services: e.target.value })}
                     className="bg-background/50 border-border/50 focus:border-primary"
                     required
                   />
@@ -253,7 +253,7 @@ const Signup = () => {
                     id="experience"
                     placeholder="Enter years of experience"
                     value={formData.experience}
-                    onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, experience: e.target.value })}
                     className="bg-background/50 border-border/50 focus:border-primary"
                     required
                   />

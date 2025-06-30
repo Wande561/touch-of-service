@@ -29,7 +29,7 @@ const BookService = () => {
     unit: 'hour',
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Booking submitted:', bookingData);
     // Show success message and redirect
@@ -76,7 +76,7 @@ const BookService = () => {
                       id="date"
                       type="date"
                       value={bookingData.date}
-                      onChange={(e) => setBookingData({ ...bookingData, date: e.target.value })}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBookingData({ ...bookingData, date: e.target.value })}
                       className="bg-background/50 border-border/50 focus:border-primary"
                       required
                     />
@@ -87,7 +87,7 @@ const BookService = () => {
                       <Clock className="w-4 h-4 inline mr-2" />
                       Select Time
                     </Label>
-                    <Select onValueChange={(value) => setBookingData({ ...bookingData, time: value })}>
+                    <Select onValueChange={(value: string) => setBookingData({ ...bookingData, time: value })}>
                       <SelectTrigger className="bg-background/50 border-border/50 focus:border-primary">
                         <SelectValue placeholder="Choose time" />
                       </SelectTrigger>
@@ -110,7 +110,7 @@ const BookService = () => {
                 {/* Duration */}
                 <div className="space-y-2">
                   <Label htmlFor="duration">Duration (hours)</Label>
-                  <Select onValueChange={(value) => setBookingData({ ...bookingData, duration: value })}>
+                  <Select onValueChange={(value: string) => setBookingData({ ...bookingData, duration: value })}>
                     <SelectTrigger className="bg-background/50 border-border/50 focus:border-primary">
                       <SelectValue placeholder="Select duration" />
                     </SelectTrigger>
@@ -135,7 +135,7 @@ const BookService = () => {
                     id="location"
                     placeholder="Enter your address"
                     value={bookingData.location}
-                    onChange={(e) => setBookingData({ ...bookingData, location: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBookingData({ ...bookingData, location: e.target.value })}
                     className="bg-background/50 border-border/50 focus:border-primary"
                     required
                   />
@@ -148,7 +148,7 @@ const BookService = () => {
                     id="notes"
                     placeholder="Any specific requirements or notes for the service provider..."
                     value={bookingData.notes}
-                    onChange={(e) => setBookingData({ ...bookingData, notes: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setBookingData({ ...bookingData, notes: e.target.value })}
                     className="bg-background/50 border-border/50 focus:border-primary"
                     rows={4}
                   />
@@ -160,7 +160,7 @@ const BookService = () => {
                     <CreditCard className="w-4 h-4 inline mr-2" />
                     Payment Method
                   </Label>
-                  <Select onValueChange={(value) => setBookingData({ ...bookingData, paymentMethod: value })}>
+                  <Select onValueChange={(value: string) => setBookingData({ ...bookingData, paymentMethod: value })}>
                     <SelectTrigger className="bg-background/50 border-border/50 focus:border-primary">
                       <SelectValue placeholder="Select payment method" />
                     </SelectTrigger>
@@ -229,7 +229,10 @@ const BookService = () => {
               <Button 
                 type="submit" 
                 className="w-full btn-gradient"
-                onClick={handleSubmit}
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  e.preventDefault();
+                  handleSubmit(e as any);
+                }}
                 disabled={!bookingData.date || !bookingData.time || !bookingData.duration || !bookingData.location}
               >
                 Confirm Booking

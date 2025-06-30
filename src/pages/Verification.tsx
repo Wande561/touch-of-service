@@ -171,7 +171,7 @@ const Verification = () => {
                     id="accountName"
                     placeholder="Full name as it appears on your bank account"
                     value={verificationData.bankDetails.accountName}
-                    onChange={(e) => handleBankDetailsChange('accountName', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleBankDetailsChange('accountName', e.target.value)}
                     className="bg-background/50 border-border/50 focus:border-primary"
                   />
                 </div>
@@ -182,7 +182,7 @@ const Verification = () => {
                     id="accountNumber"
                     placeholder="Your bank account number"
                     value={verificationData.bankDetails.accountNumber}
-                    onChange={(e) => handleBankDetailsChange('accountNumber', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleBankDetailsChange('accountNumber', e.target.value)}
                     className="bg-background/50 border-border/50 focus:border-primary"
                   />
                 </div>
@@ -194,7 +194,7 @@ const Verification = () => {
                       id="bankName"
                       placeholder="Name of your bank"
                       value={verificationData.bankDetails.bankName}
-                      onChange={(e) => handleBankDetailsChange('bankName', e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleBankDetailsChange('bankName', e.target.value)}
                       className="bg-background/50 border-border/50 focus:border-primary"
                     />
                   </div>
@@ -205,7 +205,7 @@ const Verification = () => {
                       id="branchCode"
                       placeholder="Branch code"
                       value={verificationData.bankDetails.branchCode}
-                      onChange={(e) => handleBankDetailsChange('branchCode', e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleBankDetailsChange('branchCode', e.target.value)}
                       className="bg-background/50 border-border/50 focus:border-primary"
                     />
                   </div>
