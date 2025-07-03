@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import Navigation from '@/components/Navigations';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+import Navigation from '../components/Navigations';
+import { Card } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Badge } from '../components/ui/badge';
 import { MapPin, Search, Filter, Star, Navigation2, Phone } from 'lucide-react';
 
 const Map = () => {

@@ -1,13 +1,14 @@
-
+import { useAuth } from '../context/AppContext';
+import { useEffect } from 'react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Avatar } from '@/components/ui/avatar';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import Navigation from '@/components/Navigation';
+import { Button } from '../components/ui/button';
+import { Card } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Avatar } from '../components/ui/avatar';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
+import Navigation from '../components/Navigations';
 import { 
   User, 
   Edit3, 
@@ -28,7 +29,7 @@ const Profile = () => {
     name: 'Mawande Hlangu',
     email: 'mawande@email.com',
     phone: '+27 73 123 4567',
-    location: 'KwaMashu, Durban',
+    location: 'Umhlanga, Durban',
     bio: 'I love discovering new services and connecting with local providers.',
     memberSince: '2022',
     avatar: '/placeholder.svg'
@@ -69,6 +70,29 @@ const Profile = () => {
     // Here you would typically save to backend
     console.log('Profile updated:', profile);
   };
+
+  const { identity, getUser } = useAuth();
+
+useEffect(() => {
+  const loadUser = async () => {
+    if (!identity) return;
+    const principal = identity.getPrincipal().toText();
+    const user = await getUser(principal);
+    if (user) {
+      setProfile((prev) => ({
+        ...prev,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        location: user.location,
+        // update other fields as needed
+      }));
+    }
+  };
+
+  loadUser();
+}, [identity]);
+
 
   const handleInputChange = (field: string, value: string) => {
     setProfile(prev => ({ ...prev, [field]: value }));

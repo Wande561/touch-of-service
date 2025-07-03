@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { Button } from './ui/button';
 import { Bell, Menu, X, Search, User, MessageCircle, Map } from 'lucide-react';
 
 const Navigation = () => {

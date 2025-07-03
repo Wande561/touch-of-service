@@ -5,9 +5,6 @@
       "type": "motoko"
     },
     "sea_frontend": {
-      "dependencies": [
-        "sea_backend"
-      ],
       "source": [
         "src/sea_frontend/dist"
       ],

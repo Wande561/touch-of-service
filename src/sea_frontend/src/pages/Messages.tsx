@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import Navigation from '@/components/Navigations';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+import Navigation from '../components/Navigations';
+import { Card } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Badge } from '../components/ui/badge';
 import { Search, Send, Paperclip, MoreVertical, Phone, Video, Star } from 'lucide-react';
 
 const Messages = () => {
@@ -104,11 +104,11 @@ const Messages = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       <div className="pt-16">
         <div className="max-w-7xl mx-auto p-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-8rem)]">
-            
+
             {/* Conversations List */}
             <div className="lg:col-span-1">
               <Card className="glass-card h-full flex flex-col">
@@ -128,9 +128,8 @@ const Messages = () => {
                     <div
                       key={conversation.id}
                       onClick={() => setSelectedChat(conversation.id)}
-                      className={`p-4 border-b border-border/50 cursor-pointer transition-colors hover:bg-accent/50 ${
-                        selectedChat === conversation.id ? 'bg-accent/30' : ''
-                      }`}
+                      className={`p-4 border-b border-border/50 cursor-pointer transition-colors hover:bg-accent/50 ${selectedChat === conversation.id ? 'bg-accent/30' : ''
+                        }`}
                     >
                       <div className="flex items-start space-x-3">
                         <div className="relative">
@@ -143,7 +142,7 @@ const Messages = () => {
                             <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-background"></div>
                           )}
                         </div>
-                        
+
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between mb-1">
                             <h3 className="font-semibold truncate">{conversation.name}</h3>
@@ -153,14 +152,14 @@ const Messages = () => {
                               </Badge>
                             )}
                           </div>
-                          
+
                           <div className="flex items-center space-x-1 mb-1">
                             <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                             <span className="text-xs text-muted-foreground">{conversation.rating}</span>
                             <span className="text-xs text-muted-foreground">•</span>
                             <span className="text-xs text-muted-foreground">{conversation.service}</span>
                           </div>
-                          
+
                           <p className="text-sm text-muted-foreground truncate">{conversation.lastMessage}</p>
                           <span className="text-xs text-muted-foreground">{conversation.timestamp}</span>
                         </div>
@@ -198,7 +197,7 @@ const Messages = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center space-x-2">
                       <Button variant="ghost" size="sm">
                         <Phone className="w-4 h-4" />
@@ -220,11 +219,10 @@ const Messages = () => {
                         className={`flex ${message.senderId === '1' ? 'justify-end' : 'justify-start'}`}
                       >
                         <div
-                          className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${
-                            message.senderId === '1'
+                          className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${message.senderId === '1'
                               ? 'bg-primary text-primary-foreground'
                               : 'bg-accent'
-                          }`}
+                            }`}
                         >
                           {message.type === 'image' ? (
                             <img
@@ -235,11 +233,10 @@ const Messages = () => {
                           ) : (
                             <p className="text-sm">{message.content}</p>
                           )}
-                          <span className={`text-xs mt-1 block ${
-                            message.senderId === '1' 
-                              ? 'text-primary-foreground/70' 
+                          <span className={`text-xs mt-1 block ${message.senderId === '1'
+                              ? 'text-primary-foreground/70'
                               : 'text-muted-foreground'
-                          }`}>
+                            }`}>
                             {message.timestamp}
                           </span>
                         </div>

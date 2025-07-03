@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import Navigation from '@/components/Navigation';
+import { Button } from '../components/ui/button';
+import { Card } from '../components/ui/card';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
+import Navigation from '../components/Navigations';
 import {
   ArrowLeft,
   User,
@@ -23,7 +23,7 @@ import {
   Trash2
 } from 'lucide-react';
 
-const Settings = () => {
+const Setting = () => {
   const [activeTab, setActiveTab] = useState('account');
   const [darkMode, setDarkMode] = useState(true);
   const [notifications, setNotifications] = useState({
@@ -391,4 +391,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default Setting;

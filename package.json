@@ -5,11 +5,10 @@
   },
   "name": "sea",
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
-    "prebuild": "npm run prebuild --workspaces --if-present",
-    "pretest": "npm run prebuild --workspaces --if-present",
-    "start": "npm start --workspaces --if-present",
-    "test": "npm test --workspaces --if-present"
+    "build": "pnpm --filter sea_frontend build",
+    "prebuild": "pnpm --filter sea_frontend prebuild",
+    "pretest": "pnpm --filter sea_frontend prebuild",
+    "start": "concurrently \"pnpm --filter sea_frontend start\""
   },
   "type": "module",
   "workspaces": [
@@ -18,10 +17,14 @@
   "devDependencies": {
     "@types/estree": "^1.0.8",
     "@types/json-schema": "^7.0.15",
-    "@types/node": "^24.0.3"
+    "@types/node": "^24.0.3",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "vite": "^6.3.5"
   },
   "dependencies": {
     "@dfinity/agent": "^2.4.1",
-    "@dfinity/auth-client": "^2.4.1"
+    "@dfinity/auth-client": "^2.4.1",
+    "@dfinity/principal": "^2.4.1",
+    "concurrently": "^9.2.0"
   }
 }

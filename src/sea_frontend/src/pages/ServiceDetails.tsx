@@ -1,11 +1,11 @@
 
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Avatar } from '@/components/ui/avatar';
-import Navigation from '@/components/Navigation';
+import { Button } from '../components/ui/button';
+import { Card } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Avatar } from '../components/ui/avatar';
+import Navigation from '../components/Navigation';
 import { Star, MapPin, Clock, Phone, Mail, ArrowLeft, Heart, Share2 } from 'lucide-react';
 
 const ServiceDetails = () => {
@@ -22,7 +22,7 @@ const ServiceDetails = () => {
       memberSince: '2022',
       verified: true,
     },
-    price: { amount: 50, unit: 'hour' },
+    price: { amount: 350, unit: 'hour' },
     location: 'KwaMashu, Durban',
     responseTime: '< 1 hour',
     category: 'Cleaning',

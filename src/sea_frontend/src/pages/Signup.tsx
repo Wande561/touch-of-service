@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useAuth } from '../context/AppContext';
+import { Principal } from '@dfinity/principal';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
+import { Card } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
 import { ArrowLeft, User, Briefcase, Check } from 'lucide-react';
 
 const Signup = () => {
@@ -21,16 +23,36 @@ const Signup = () => {
     license: '',
   });
   
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('Signup form submitted:', { accountType, ...formData });
+  const { registerUser } = useAuth();
+
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const userRole = accountType === 'provider' ? { Provider: null } : { Seeker: null };
+
+  try {
+    await registerUser({
+       id: Principal.fromText('aaaaa-aa'),
+       email: formData.email,
+       phone: formData.phone,
+       name: formData.name,
+       location: formData.location,
+       role: userRole,
+       servicesOffered: [],
+       servicesRequested: [],
+    });
+
 
     if (accountType === 'provider') {
       navigate('/verification');
     } else {
       navigate('/home');
     }
-  };
+  } catch (err) {
+    console.error("Registration error:", err);
+  }
+};
+
 
   if (!accountType) {
     return (

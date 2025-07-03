@@ -1,13 +1,13 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Avatar } from '@/components/ui/avatar';
-import SearchFilters from '@/components/SearchFilters';
-import ServiceCard from '@/components/ServiceCard';
-import Navigation from '@/components/Navigations';
+import { Button } from '../components/ui/button';
+import { Card } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Avatar } from '../components/ui/avatar';
+import SearchFilters from '../components/SearchFilters';
+import ServiceCard from '../components/ServiceCard';
+import Navigation from '../components/Navigations';
 import { Star, Bell, User, Settings, Calendar, MapPin, TrendingUp, Heart } from 'lucide-react';
 
 const Home = () => {
